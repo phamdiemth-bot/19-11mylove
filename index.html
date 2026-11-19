@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 19/11, Anh Hùng ❤️</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <style>
+    :root {
+      --wine-red: #9B111E;
+      --velvet-red: #D2042D;
+      --soft-blush: #FFF5F5;
+      --rose-tint: #FFE4E6;
+      --cream-paper: #FFFDF9;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #FFF5F5 0%, #FFE4E6 50%, #FFD6DC 100%);
+      color: #4A0E17;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .font-script { font-family: 'Dancing Script', cursive; }
+    .font-serif-title { font-family: 'Playfair Display', serif; }
+
+    .heart-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -40px;
+      color: #D2042D;
+      opacity: 0.35;
+      animation: floatUp linear infinite;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+      15% { opacity: 0.45; }
+      85% { opacity: 0.35; }
+      100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+
+    #envelope-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #B91C32 0%, #7F0918 100%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #envelope-overlay.opened {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.06);
+    }
+
+    .envelope-card {
+      background: #FFFDF9;
+      border: 2px solid #FBCFE8;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      transition: transform 0.35s ease;
+    }
+
+    .envelope-card:hover { transform: translateY(-6px); }
+
+    .wax-seal {
+      background: radial-gradient(circle at 30% 30%, #E11D48, #881337);
+      box-shadow: 0 6px 16px rgba(136, 19, 55, 0.5), inset 0 2px 4px rgba(255,255,255,0.35);
+      animation: pulseSeal 2s infinite;
+    }
+
+    @keyframes pulseSeal {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .polaroid {
+      background: #FFFFFF;
+      padding: 14px 14px 44px 14px;
+      border-radius: 6px;
+      box-shadow: 0 14px 32px rgba(155, 17, 30, 0.16);
+      border: 1px solid rgba(210, 4, 45, 0.12);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .polaroid-left { transform: rotate(-2.5deg); }
+    .polaroid-right { transform: rotate(2.5deg); }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.04);
+      box-shadow: 0 22px 42px rgba(155, 17, 30, 0.25);
+      z-index: 10;
+    }
+
+    .letter-paper {
+      background-color: var(--cream-paper);
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        rgba(210, 4, 45, 0.08) 32px
+      );
+      border: 2px solid rgba(155, 17, 30, 0.2);
+      box-shadow: 0 16px 40px rgba(155, 17, 30, 0.12);
+    }
+
+    .vinyl-spin { animation: spinVinyl 7s linear infinite; }
+    .vinyl-paused { animation-play-state: paused; }
+
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .burst-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 60;
+      font-size: 24px;
+      animation: burstAnim 1.4s ease-out forwards;
+    }
+
+    @keyframes burstAnim {
+      0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--rot)); }
+    }
+  </style>
+</head>
+<body class="relative selection:bg-rose-200 selection:text-rose-900">
+
+  <!-- Nền trái tim bay -->
+  <div class="heart-bg" id="heart-bg"></div>
+
+  <!-- Phong bì mở quà đầu trang -->
+  <div id="envelope-overlay">
+    <div class="envelope-card max-w-md w-[90%] rounded-3xl p-8 text-center relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#9B111E] via-[#D2042D] to-[#9B111E]"></div>
+      
+      <p class="text-xs uppercase tracking-[0.25em] text-[#9B111E] font-bold mb-2">Special Delivery • 19/11</p>
+      <h2 class="font-script text-4xl sm:text-5xl text-[#D2042D] mb-3">Gửi Anh Hùng ❤️</h2>
+      <p class="text-sm sm:text-base text-rose-900/80 mb-7 leading-relaxed">
+        Có một món quà nhỏ xinh cùng giai điệu <em>"Internet Love"</em> đang chờ anh mở ra đó!
+      </p>
+
+      <button id="open-gift-btn"
+        class="group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-[#9B111E] to-[#D2042D] text-white font-bold text-base sm:text-lg shadow-lg shadow-rose-900/30 hover:shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer">
+        <span class="wax-seal w-8 h-8 rounded-full flex items-center justify-center text-sm">💌</span>
+        <span>Mở quà 19/11 của anh nhé ❤️</span>
+      </button>
+
+      <p class="text-xs text-rose-400 mt-5">Bấm vào nút trên để mở thiệp & bật nhạc nha</p>
+    </div>
+  </div>
+
+  <!-- Nội dung chính -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-44">
+
+    <!-- Hero & Bộ đếm ngày bên nhau -->
+    <section class="text-center mb-14 reveal">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-rose-200 text-[#9B111E] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-sm mb-5">
+        <span>🌹</span>
+        <span>Happy International Men's Day • 19/11</span>
+        <span>🌹</span>
+      </div>
+
+      <h1 class="font-script text-5xl sm:text-7xl text-[#9B111E] drop-shadow-sm mb-3">
+        Happy 19/11, My Love!
+      </h1>
+      <p class="font-serif-title italic text-xl sm:text-2xl text-[#D2042D] mb-8">
+        Dành tặng anh Hùng — người thương tuyệt vời nhất của em
+      </p>
+
+      <!-- Bộ đếm ngày yêu từ 20/07/2026 -->
+      <div class="max-w-xl mx-auto bg-white/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-rose-200/80 shadow-lg shadow-rose-900/5">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <span class="text-xs sm:text-sm font-bold text-[#9B111E] uppercase tracking-wider">
+            ⏳ Thời gian chúng mình bên nhau (từ 20/07/2026)
+          </span>
+          <button id="toggle-date-btn"
+            class="text-xs font-semibold text-rose-600 hover:text-rose-800 underline underline-offset-2 cursor-pointer">
+            Chỉnh ngày
+          </button>
+        </div>
+
+        <div id="date-picker-box" class="hidden mb-4 p-3 rounded-2xl bg-rose-50 border border-rose-200 flex flex-wrap items-center justify-center gap-2">
+          <label for="start-date-input" class="text-xs font-semibold text-rose-900">Ngày bắt đầu yêu:</label>
+          <input type="date" id="start-date-input"
+            class="text-xs px-3 py-1.5 rounded-lg border border-rose-300 bg-white text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-500" />
+          <button id="save-date-btn"
+            class="text-xs px-3 py-1.5 rounded-lg bg-[#D2042D] text-white font-bold hover:bg-[#9B111E] transition cursor-pointer">
+            Lưu
+          </button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+          <div class="bg-gradient-to-b from-rose-50 to-rose-100/70 rounded-2xl py-3 px-2 border border-rose-200/60">
+            <div id="days" class="text-2xl sm:text-3xl font-bold text-[#9B111E]">0</div>
+            <div class="text-[11px] sm:text-xs font-semibold text-rose-700 mt-0.5">Ngày</div>
+          </div>
+          <div class="bg-gradient-to-b from-rose-50 to-rose-100/70 rounded-2xl py-3 px-2 border border-rose-200/60">
+            <div id="hours" class="text-2xl sm:text-3xl font-bold text-[#9B111E]">00</div>
+            <div class="text-[11px] sm:text-xs font-semibold text-rose-700 mt-0.5">Giờ</div>
+          </div>
+          <div class="bg-gradient-to-b from-rose-50 to-rose-100/70 rounded-2xl py-3 px-2 border border-rose-200/60">
+            <div id="minutes" class="text-2xl sm:text-3xl font-bold text-[#9B111E]">00</div>
+            <div class="text-[11px] sm:text-xs font-semibold text-rose-700 mt-0.5">Phút</div>
+          </div>
+          <div class="bg-gradient-to-b from-rose-50 to-rose-100/70 rounded-2xl py-3 px-2 border border-rose-200/60">
+            <div id="seconds" class="text-2xl sm:text-3xl font-bold text-[#D2042D]">00</div>
+            <div class="text-[11px] sm:text-xs font-semibold text-rose-700 mt-0.5">Giây</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Góc Kỷ Niệm Polaroid -->
+    <section class="mb-16 reveal">
+      <div class="text-center mb-8">
+        <h2 class="font-script text-4xl sm:text-5xl text-[#9B111E]">Góc Kỷ Niệm Của Tụi Mình</h2>
+        <p class="text-xs sm:text-sm text-rose-700/80 mt-1">Bấm vào khung ảnh để chọn ảnh kỷ niệm từ máy của bạn nha 📷</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 max-w-3xl mx-auto px-2">
+        <!-- Ảnh 1: Đặt file anh1.jpg cùng thư mục hoặc bấm vào khung để chọn ảnh -->
+        <div class="polaroid polaroid-left group relative" onclick="document.getElementById('upload-1').click()">
+          <div class="aspect-square w-full overflow-hidden rounded bg-rose-100 relative flex items-center justify-center">
+            <img id="photo-1" src="anh1.jpg" alt="Kỷ niệm 1"
+              onerror="this.style.display='none'; document.getElementById('placeholder-1').classList.remove('hidden');"
+              class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105" />
+            <div id="placeholder-1" class="hidden text-center p-4 text-rose-400">
+              <div class="text-3xl mb-1">📸</div>
+              <p class="text-xs font-bold">Bấm vào đây để chèn ảnh 1<br>(hoặc lưu ảnh tên anh1.jpg cùng thư mục)</p>
+            </div>
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+              <span class="bg-white/90 text-[#9B111E] text-xs font-bold px-3 py-1.5 rounded-full shadow">📷 Chọn / Đổi ảnh</span>
+            </div>
+          </div>
+          <p class="font-script text-2xl text-center text-[#9B111E] mt-4">
+            Khoảnh khắc ngọt ngào nhất của tụi mình 😘
+          </p>
+          <input type="file" id="upload-1" accept="image/*" class="hidden" onchange="previewPhoto(event, 'photo-1', 'placeholder-1')" />
+        </div>
+
+        <!-- Ảnh 2: Đặt file anh2.jpg cùng thư mục hoặc bấm vào khung để chọn ảnh -->
+        <div class="polaroid polaroid-right group relative" onclick="document.getElementById('upload-2').click()">
+          <div class="aspect-[4/3] sm:aspect-square w-full overflow-hidden rounded bg-rose-100 relative flex items-center justify-center">
+            <img id="photo-2" src="anh2.jpg" alt="Kỷ niệm 2"
+              onerror="this.style.display='none'; document.getElementById('placeholder-2').classList.remove('hidden');"
+              class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105" />
+            <div id="placeholder-2" class="hidden text-center p-4 text-rose-400">
+              <div class="text-3xl mb-1">✨</div>
+              <p class="text-xs font-bold">Bấm vào đây để chèn ảnh 2<br>(hoặc lưu ảnh tên anh2.jpg cùng thư mục)</p>
+            </div>
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+              <span class="bg-white/90 text-[#9B111E] text-xs font-bold px-3 py-1.5 rounded-full shadow">📷 Chọn / Đổi ảnh</span>
+            </div>
+          </div>
+          <p class="font-script text-2xl text-center text-[#9B111E] mt-4">
+            Đi cùng anh dưới ánh đèn lung linh ✨
+          </p>
+          <input type="file" id="upload-2" accept="image/*" class="hidden" onchange="previewPhoto(event, 'photo-2', 'placeholder-2')" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Thư tay gửi anh Hùng -->
+    <section class="mb-16 reveal">
+      <div class="max-w-2xl mx-auto letter-paper rounded-3xl p-7 sm:p-11 relative">
+        <div class="absolute -top-4 -right-3 sm:-right-4 w-14 h-14 rounded-full bg-gradient-to-br from-[#D2042D] to-[#9B111E] text-white flex items-center justify-center text-2xl shadow-lg rotate-12 border-2 border-white">
+          ❤️
+        </div>
+
+        <p class="font-script text-3xl sm:text-4xl text-[#9B111E] mb-4">
+          Gửi anh Hùng yêu dấu,
+        </p>
+
+        <div class="space-y-4 text-base sm:text-lg text-rose-950/90 leading-8 font-medium">
+          <p>
+            Chúc mừng 19/11 người yêu em nhé! Dù hiện tại tụi mình đang yêu xa nhưng cảm ơn anh vì đã luôn ở bên, dịu dàng quan tâm và mang lại cho em thật nhiều niềm vui mỗi ngày.
+          </p>
+          <p>
+            Chúc anh luôn thật nhiều sức khỏe, lúc nào cũng vui vẻ, tự tin và gặt hái được thật nhiều thành công trên con đường anh chọn. Và đặc biệt là... phải yêu em nhiều hơn nữa đấy nhé!
+          </p>
+        </div>
+
+        <div class="mt-7 text-right">
+          <p class="font-script text-2xl sm:text-3xl text-[#D2042D]">
+            Thương anh thật nhiều 💕
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chọn quà yêu xa -->
+    <section class="text-center reveal">
+      <div class="max-w-2xl mx-auto bg-white/85 backdrop-blur-md rounded-3xl p-7 sm:p-9 border border-rose-200 shadow-lg">
+        <h3 class="font-script text-3xl sm:text-4xl text-[#9B111E] mb-2">
+          Hôm nay anh Hùng muốn nhận thưởng gì nào? 🎁
+        </h3>
+        <p class="text-sm sm:text-base font-bold text-[#D2042D] mb-6">
+          Khi nào em về thì em sẽ bù cho anh hết nhé! 💕
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-7">
+          <button onclick="selectGift(this, 'Một cái ôm thật chặt & 10 cái thơm má 😘')"
+            class="gift-choice p-3.5 rounded-2xl border-2 border-rose-200 bg-rose-50/70 hover:border-[#D2042D] hover:bg-rose-100/70 text-sm font-bold text-[#9B111E] transition cursor-pointer">
+            🤗 Một cái ôm thật chặt
+          </button>
+          <button onclick="selectGift(this, 'Một bữa tối ngon lành do anh chọn món 🍜')"
+            class="gift-choice p-3.5 rounded-2xl border-2 border-rose-200 bg-rose-50/70 hover:border-[#D2042D] hover:bg-rose-100/70 text-sm font-bold text-[#9B111E] transition cursor-pointer">
+            🍽️ Một bữa tối ngon lành
+          </button>
+          <button onclick="selectGift(this, 'Đi dạo cùng nhau & chụp thật nhiều ảnh đẹp 📸')"
+            class="gift-choice p-3.5 rounded-2xl border-2 border-rose-200 bg-rose-50/70 hover:border-[#D2042D] hover:bg-rose-100/70 text-sm font-bold text-[#9B111E] transition cursor-pointer">
+            🌙 Đi dạo cùng nhau
+          </button>
+        </div>
+
+        <div id="gift-result" class="hidden mb-6 p-4 rounded-2xl bg-rose-100/90 border border-rose-300 text-[#9B111E] font-bold text-sm sm:text-base"></div>
+
+        <button id="kiss-btn"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#D2042D] to-[#9B111E] text-white font-bold text-sm sm:text-base shadow-lg shadow-rose-900/25 hover:scale-105 active:scale-95 transition cursor-pointer">
+          <span>💖 Bấm vào đây để nhận ngàn trái tim</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Trình phát nhạc SoundCloud: internet love - vstra -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-5 sm:translate-x-0 z-40 w-[92%] max-w-sm">
+    <div class="bg-white/95 backdrop-blur-md border border-rose-200 rounded-2xl p-3 shadow-xl shadow-rose-950/15 flex items-center gap-3">
+      <div id="vinyl-disc" class="w-12 h-12 rounded-full bg-gradient-to-tr from-zinc-900 via-zinc-800 to-zinc-900 flex items-center justify-center shrink-0 shadow-md vinyl-spin vinyl-paused relative border-2 border-rose-300">
+        <div class="w-4 h-4 rounded-full bg-[#D2042D] border border-white"></div>
+      </div>
+
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-bold text-[#9B111E] truncate">internet love</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-100 text-[#D2042D] font-bold shrink-0">vstra</span>
+        </div>
+        <p id="music-status" class="text-[11px] text-rose-700/80 truncate mt-0.5">
+          "Vì em đã trót yêu anh mất rồi..." 🎶
+        </p>
+      </div>
+
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button id="play-pause-btn" title="Phát / Tạm dừng"
+          class="w-9 h-9 rounded-full bg-[#D2042D] hover:bg-[#9B111E] text-white flex items-center justify-center shadow transition cursor-pointer">
+          <span id="play-icon" class="text-xs ml-0.5">▶</span>
+        </button>
+        <a href="https://on.soundcloud.com/TKaHHkXDIyfkf9Y5gFP" target="_blank" rel="noopener noreferrer" title="Mở trên SoundCloud"
+          class="w-8 h-8 rounded-full bg-rose-100 hover:bg-rose-200 text-[#9B111E] flex items-center justify-center text-xs font-bold transition">
+          ↗
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-1.5 rounded-xl overflow-hidden border border-rose-200/80 shadow-sm bg-white/90" id="sc-embed-wrapper">
+      <iframe id="sc-widget"
+        width="100%"
+        height="80"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//on.soundcloud.com/TKaHHkXDIyfkf9Y5gFP&color=%23d2042d&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    // 1. Hiệu ứng tim bay nền
+    const heartBg = document.getElementById('heart-bg');
+    const heartSymbols = ['❤️', '💖', '💕', '🌹', '💗'];
+    for (let i = 0; i < 22; i++) {
+      const span = document.createElement('span');
+      span.className = 'floating-heart';
+      span.textContent = heartSymbols[i % heartSymbols.length];
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.fontSize = (14 + Math.random() * 18) + 'px';
+      span.style.animationDuration = (7 + Math.random() * 8) + 's';
+      span.style.animationDelay = (Math.random() * 6) + 's';
+      heartBg.appendChild(span);
+    }
+
+    // 2. Điều khiển SoundCloud Widget API
+    const scIframe = document.getElementById('sc-widget');
+    const widget = SC.Widget(scIframe);
+    const vinylDisc = document.getElementById('vinyl-disc');
+    const playIcon = document.getElementById('play-icon');
+    const musicStatus = document.getElementById('music-status');
+
+    widget.bind(SC.Widget.Events.PLAY, () => {
+      vinylDisc.classList.remove('vinyl-paused');
+      playIcon.textContent = '⏸';
+      playIcon.classList.remove('ml-0.5');
+      musicStatus.textContent = 'Đang phát: internet love - vstra 🎶';
+    });
+
+    widget.bind(SC.Widget.Events.PAUSE, () => {
+      vinylDisc.classList.add('vinyl-paused');
+      playIcon.textContent = '▶';
+      playIcon.classList.add('ml-0.5');
+      musicStatus.textContent = 'Đã tạm dừng nhạc';
+    });
+
+    widget.bind(SC.Widget.Events.FINISH, () => {
+      widget.seekTo(0);
+      widget.play();
+    });
+
+    document.getElementById('play-pause-btn').addEventListener('click', () => {
+      widget.toggle();
+    });
+
+    // 3. Mở phong bì & tự động bật nhạc
+    const overlay = document.getElementById('envelope-overlay');
+    document.getElementById('open-gift-btn').addEventListener('click', () => {
+      overlay.classList.add('opened');
+      triggerHeartBurst(window.innerWidth / 2, window.innerHeight / 2, 28);
+      try { widget.play(); } catch (e) {}
+    });
+
+    // 4. Bộ đếm thời gian yêu từ 20/07/2026
+    const defaultStartDate = '2026-07-20';
+    let savedStartDate = localStorage.getItem('love_start_date_hung_2026') || defaultStartDate;
+    const startDateInput = document.getElementById('start-date-input');
+    startDateInput.value = savedStartDate;
+
+    document.getElementById('toggle-date-btn').addEventListener('click', () => {
+      document.getElementById('date-picker-box').classList.toggle('hidden');
+    });
+
+    document.getElementById('save-date-btn').addEventListener('click', () => {
+      if (startDateInput.value) {
+        savedStartDate = startDateInput.value;
+        localStorage.setItem('love_start_date_hung_2026', savedStartDate);
+        document.getElementById('date-picker-box').classList.add('hidden');
+        updateCounter();
+      }
+    });
+
+    function updateCounter() {
+      const start = new Date(savedStartDate + 'T00:00:00');
+      const now = new Date();
+      let diff = Math.max(0, now - start);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    // 5. Chọn ảnh kỷ niệm
+    function previewPhoto(event, imgId, placeholderId) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById(imgId);
+        img.src = e.target.result;
+        img.style.display = 'block';
+        document.getElementById(placeholderId).classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 6. Chọn quà yêu xa
+    function selectGift(btn, text) {
+      document.querySelectorAll('.gift-choice').forEach(el => {
+        el.classList.remove('bg-[#D2042D]', 'text-white', 'border-[#9B111E]');
+        el.classList.add('bg-rose-50/70', 'text-[#9B111E]');
+      });
+      btn.classList.remove('bg-rose-50/70', 'text-[#9B111E]');
+      btn.classList.add('bg-[#D2042D]', 'text-white', 'border-[#9B111E]');
+
+      const resBox = document.getElementById('gift-result');
+      resBox.textContent = '✨ Đã chốt đơn quà cho anh Hùng: ' + text + ' — Khi nào em về em bù liền nha 💕';
+      resBox.classList.remove('hidden');
+
+      const rect = btn.getBoundingClientRect();
+      triggerHeartBurst(rect.left + rect.width / 2, rect.top, 16);
+    }
+
+    // 7. Pháo hoa trái tim
+    function triggerHeartBurst(x, y, count = 24) {
+      const emojis = ['❤️', '💖', '💘', '💝', '🌹', '✨'];
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'burst-heart';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const dist = 70 + Math.random() * 160;
+        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--ty', (Math.sin(angle) * dist - 50) + 'px');
+        p.style.setProperty('--rot', (Math.random() * 360 - 180) + 'deg');
+
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1450);
+      }
+    }
+
+    document.getElementById('kiss-btn').addEventListener('click', (e) => {
+      triggerHeartBurst(e.clientX, e.clientY, 32);
+    });
+
+    // 8. Hiệu ứng hiện dần khi cuộn trang
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
